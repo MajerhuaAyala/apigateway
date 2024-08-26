@@ -3,6 +3,7 @@ import { UserController } from './user.controller';
 import { KafkaModule } from '../transport/kafka.module';
 
 @Module({
-  controllers: [UserController, KafkaModule],
+  controllers: [UserController],
+  imports: [KafkaModule],
 })
 export class UserModule {}
