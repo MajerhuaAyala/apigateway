@@ -5,7 +5,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   imports: [
     ClientsModule.register([
       {
-        name: 'FIBO_SERVICE',
+        name: 'ACTION_SERVICE',
         transport: Transport.KAFKA,
         options: {
           client: {
@@ -22,7 +22,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   exports: [
     ClientsModule.register([
       {
-        name: 'FIBO_SERVICE',
+        name: 'ACTION_SERVICE',
         transport: Transport.KAFKA,
         options: {
           client: {

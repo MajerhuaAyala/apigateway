@@ -6,7 +6,7 @@ import { ClientKafka } from '@nestjs/microservices';
 export class AppController {
   private admin: Admin;
 
-  constructor(@Inject('FIBO_SERVICE') private client: ClientKafka) {}
+  constructor(@Inject('ACTION_SERVICE') private client: ClientKafka) {}
 
   @Get('me')
   async getMe() {

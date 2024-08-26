@@ -3,7 +3,7 @@ import { ClientKafka } from '@nestjs/microservices';
 
 @Controller('user')
 export class UserController {
-  constructor(@Inject('FIBO_SERVICE') private client: ClientKafka) {}
+  constructor(@Inject('ACTION_SERVICE') private client: ClientKafka) {}
 
   @Get('me')
   async getMe() {
