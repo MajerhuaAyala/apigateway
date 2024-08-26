@@ -10,7 +10,6 @@ export class UserController {
     console.log('peticion user controller');
     return new Promise((resolve) => {
       this.client.send('user', {}).subscribe((result: string) => {
-        console.log('>>>>>>>>>>>>> ', result);
         resolve(result);
       });
     });
