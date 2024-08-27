@@ -1,15 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 
-/**
- * {
- *   rpcError: {
- *     error: { message: [Array], error: 'Bad Request', statusCode: 400 },
- *     message: 'Rpc Exception'
- *   }
- * }
- * **/
-
 type ErrorToDto = {
   error: { message: string[]; error: string; statusCode: number };
   message: string;
@@ -23,7 +14,6 @@ export class RpcCustomExceptionFilter implements ExceptionFilter {
 
     const rpcError = exception.getError();
     const errorToDto: ErrorToDto = JSON.parse(JSON.stringify(rpcError));
-
     if (errorToDto?.error?.message) {
       const code = errorToDto?.error?.statusCode;
       const message = errorToDto?.error?.message;

@@ -3,6 +3,7 @@ import { ClientKafka, RpcException } from '@nestjs/microservices';
 import { AuthGuard } from '../guards/auth.guard';
 import { catchError } from 'rxjs';
 import { Admin, Kafka } from 'kafkajs';
+import { UserRegisterDto } from './dto/user-register.dto';
 
 @Controller('user')
 export class UserController {
@@ -31,7 +32,7 @@ export class UserController {
   }
 
   @Post('registerUser')
-  async registerUser(@Body() registerUserDto: Map<string, string>) {
+  async registerUser(@Body() registerUserDto: UserRegisterDto) {
     return this.client.send('user.register.user', registerUserDto).pipe(
       catchError((error) => {
         throw new RpcException(error);
