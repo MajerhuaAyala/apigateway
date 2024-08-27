@@ -34,7 +34,6 @@ export class UserController {
   async registerUser(@Body() registerUserDto: Map<string, string>) {
     return this.client.send('user.register.user', registerUserDto).pipe(
       catchError((error) => {
-        console.log({ error });
         throw new RpcException(error);
       }),
     );
