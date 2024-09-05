@@ -23,7 +23,6 @@ export class UserController {
 
   @Get('jwt')
   async getJwt() {
-    console.log('get jwt');
     return new Promise((resolve) => {
       this.client.send('jwt', {}).subscribe((result: string) => {
         resolve(result);

@@ -18,7 +18,6 @@ export class HttpCustomExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse();
     const error = exception.getResponse();
     const errorToDto: ErrorToDto = JSON.parse(JSON.stringify(error));
-    console.log(errorToDto);
     if (errorToDto?.message) {
       const code = errorToDto?.statusCode;
       const message = errorToDto?.message;
