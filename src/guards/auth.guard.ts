@@ -8,10 +8,11 @@ import {
 import { ClientKafka, RpcException } from '@nestjs/microservices';
 import { Request } from 'express';
 import { firstValueFrom } from 'rxjs';
+import { SERVICE_NAME } from '../config';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(@Inject('ACTION_SERVICE') private client: ClientKafka) {}
+  constructor(@Inject(SERVICE_NAME) private client: ClientKafka) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     try {

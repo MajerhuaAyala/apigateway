@@ -4,11 +4,12 @@ import { AuthGuard } from '../guards/auth.guard';
 import { catchError } from 'rxjs';
 import { Admin, Kafka } from 'kafkajs';
 import { UserRegisterDto } from './dto/user-register.dto';
+import { BROKERS, SERVICE_NAME, TOPICS_TO_WHICH_RESPONSE } from '../config';
 
 @Controller('user')
 export class UserController {
   private admin: Admin;
-  constructor(@Inject('ACTION_SERVICE') private client: ClientKafka) {}
+  constructor(@Inject(SERVICE_NAME) private client: ClientKafka) {}
 
   @UseGuards(AuthGuard)
   @Get('me')
@@ -40,22 +41,20 @@ export class UserController {
   }
 
   async onModuleInit() {
-    const services = ['user', 'jwt', 'auth.verify.user', 'user.register.user'];
-
-    for (const service of services) {
+    for (const service of TOPICS_TO_WHICH_RESPONSE) {
       this.client.subscribeToResponseOf(service);
     }
 
     const kafka = new Kafka({
       clientId: 'auction-app',
-      brokers: ['localhost:9092'],
+      brokers: BROKERS,
     });
 
     this.admin = kafka.admin();
     const topics = await this.admin.listTopics();
 
     const topicList = [];
-    for (const service of services) {
+    for (const service of topics) {
       if (!topics.includes(service)) {
         topicList.push({
           topic: service,

@@ -1,19 +1,20 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { BROKERS, CLIENT_ID, CONSUMER_GROUP_ID, SERVICE_NAME } from '../config';
 
 @Module({
   imports: [
     ClientsModule.register([
       {
-        name: 'ACTION_SERVICE',
+        name: SERVICE_NAME,
         transport: Transport.KAFKA,
         options: {
           client: {
-            clientId: 'app-gateway',
-            brokers: ['localhost:9092'],
+            clientId: CLIENT_ID,
+            brokers: BROKERS,
           },
           consumer: {
-            groupId: 'kafka-microservice',
+            groupId: CONSUMER_GROUP_ID,
           },
         },
       },
@@ -22,15 +23,15 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   exports: [
     ClientsModule.register([
       {
-        name: 'ACTION_SERVICE',
+        name: SERVICE_NAME,
         transport: Transport.KAFKA,
         options: {
           client: {
-            clientId: 'app-gateway',
-            brokers: ['localhost:9092'],
+            clientId: CLIENT_ID,
+            brokers: BROKERS,
           },
           consumer: {
-            groupId: 'kafka-microservice',
+            groupId: CONSUMER_GROUP_ID,
           },
         },
       },
